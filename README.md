@@ -1,3 +1,77 @@
+# California Covid-19 Case Tracker
+
+## Project Description
+
+Case Tracker designed to visualize California state Covid-19 new cases and deaths. The program implemented using Bokeh library and run with Bokeh server. There are 2 charts being shown:
+- Line chart to show daily new cases/deaths of Covid-19 in California state
+- Pie chart to show total cases/deaths in proportion to ethnicity/race.
+
+
+## Preparing Environment and Running Project
+
+1. Open command line/power shell and do git clone by running:
+
+```
+git clone https://github.com/nandrian-usc/california-coronavirus-data.git
+```
+
+2. If not installed yet, do pip installation of virtualenv
+
+```
+pip install virtualenv
+```
+
+3. Make new environment named "env" by running in command line:
+
+```
+python -m venv dsci560env
+```
+
+4. Activate environment by running:
+
+```
+.\env\Script\activate
+```
+
+5. Install dependencies (numpy, pandas, bokeh) with two ways:
+a. by manually running in order:
+
+```
+pip install numpy
+```
+
+```
+pip install pandas
+```
+
+```
+pip install bokeh
+```
+
+b. Or by using requirement.txt from git clone, run:
+
+```
+pip install -r requirements.txt
+```
+
+6. Run visualization script by executing: 
+
+```
+bokeh serve --show .\case_tracker.py
+```
+
+Wait until page is opened in browser.
+
+7. Browse data in the charts by selecting from dropdown and date picker.
+
+8. Shutdown bokeh server when finished by pressing Ctrl+C in terminal. Deactivate "env" environment when finished
+
+```
+deactivate
+``` 
+
+
+
 # california-coronavirus-data
 
 The Los Angeles Times' independent tally of coronavirus cases in California.
