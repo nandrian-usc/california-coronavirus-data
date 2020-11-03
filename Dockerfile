@@ -11,5 +11,3 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 EXPOSE 5006
-
-CMD ["bokeh", "serve", "--show", "./case_tracker.py"]
