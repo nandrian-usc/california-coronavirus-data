@@ -142,7 +142,7 @@ vii. Open the Case Tracker site by opening in browser <a href="http://localhost:
 
 
 ### b. Play-With-Docker
-Different docker file (named NonlocalDockerfile) was used to build image outside local Computer such as play-with-docker lab. This is because after running the created docker image, it won't run the bokeh server yet because there'll be extra configuration (which is --allow-websocket-origin) needed for networking access that should be executed in container bokeh server command line.
+Different docker file (named NonlocalDockerfile) was used to build image outside local Computer such as play-with-docker lab. This is because after running the created docker image, it won't run the bokeh server yet because there'll be extra configuration (which is --allow-websocket-origin) needed for networking access that should be executed in container's command line along with bokeh server command.
 
 i. Open play-with-docker site at <a href="https://labs.play-with-docker.com/">here</a> and click Start.
 
