@@ -34,6 +34,7 @@ python -m venv dsci560env
 ```
 
 5. Install dependencies (numpy, pandas, bokeh) with two ways:
+
 a. by manually running in order:
 
 ```
