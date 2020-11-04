@@ -61,7 +61,7 @@ pip install -r requirements.txt
 bokeh serve --show .\case_tracker.py
 ```
 
-Wait until page is opened in browser.
+Wait until page is opened in browser or open <a href="http://localhost:5006/case_tracker">http://localhost:5006/case_tracker</a>
 
 7. Browse data in the charts by selecting from dropdown and date picker.
 
@@ -70,6 +70,7 @@ Wait until page is opened in browser.
 ```
 deactivate
 ``` 
+
 
 ## Run Project using Docker
 
