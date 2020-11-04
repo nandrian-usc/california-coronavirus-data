@@ -273,7 +273,11 @@ example:
 docker rmi b6cefbebfaaa
 ```
 
+vii. See images which is dangling:
 
+```
+docker images -f dangling=true
+```
 
 
 # california-coronavirus-data
