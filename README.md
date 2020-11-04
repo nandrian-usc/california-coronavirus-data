@@ -178,7 +178,7 @@ vi. Run docker image in container by executing:
 docker run --rm -it -d -p 5006:5006/tcp californiacovidcasetracker:latest
 ```
 
-vii. Before running the application, you will need information on "<container name>" and "<playwithdocker_network_address>" which can be known by:
+vii. Before running the application, you will need information on "container name" and "playwithdocker_network_address" which can be known by:
 
 - <container_name> : run "docker ps" command and look for the name under header NAMES, example: "gracious_ardinghelli"
 
