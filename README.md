@@ -1,10 +1,30 @@
 # California Covid-19 Case Tracker
 
+
 ## Project Description
 
 Case Tracker designed to visualize California state Covid-19 new cases and deaths. The program implemented using Bokeh library and run with Bokeh server. There are 2 charts being shown:
 - Line chart to show daily new cases/deaths of Covid-19 in California state
 - Pie chart to show total cases/deaths in proportion to ethnicity/race.
+
+
+
+
+## Files added
+
+1. requirements.txt contain environment requirement that would create separate environment under "env" folder.
+
+2. case_tracker.py contain main visualization script that would visualize all charts using Bokeh.
+
+3. Dockerfile contain docker setting that would create docker image in local machine.
+
+4. NonlocalDockerfile contain docker setting that would create docker image in non local machine such as play-with-docker labs site.
+
+5. Existing data file used for Line Chart (new cases or deaths in California State) : cdph-state-totals.csv
+
+6. Existing data file used for Pie Chart (total cases/deaths according to ethnicity) : cdph-race-ethnicity.csv
+
+
 
 
 ## Preparing Environment and Running Project
