@@ -70,6 +70,187 @@ Wait until page is opened in browser.
 deactivate
 ``` 
 
+## Run Project using Docker
+
+There are two options to build and run Dockerfile which are running it in local computer or running it in play-with-docker.
+
+### a. Local Computer
+
+Build in local computer and run the image will run the application bokeh server right from start so that user can just open the URL link (mentioned in powershell, ex: http://localhost:5006/case_tracker) in the browser.
+
+i. Make sure you have docker service installed and running in your local computer. For example in this project, Docker Desktop was already running in Windows machine. Open windows PowerShell and start typing below commands.
+
+ii. git clone github repository by running: 
+
+```
+git clone https://github.com/nandrian-usc/california-coronavirus-data.git
+```
+
+iii. Go into california-coronavirus-data folder:
+
+```
+cd california-coronavirus-data
+```
+
+iv. Build docker image using Dockerfile
+
+```
+docker build . -t californiacovidcasetracker
+```
+
+v. Check that image was successfully created, run:
+ 
+```
+docker images -a
+``` 
+
+See that image californiacovidcasetracker is among the result.
+
+vi. Run docker image in container by executing:
+
+```
+docker run --rm -it -d -p 5006:5006/tcp californiacovidcasetracker:latest
+```
+
+vii. Open the Case Tracker site by opening in browser <a href="http://localhost:5006/case_tracker">http://localhost:5006/case_tracker</a>
+
+### b. Play-With-Docker
+Different docker file (named NonlocalDockerfile) was used to build image outside local Computer such as play-with-docker lab. This is because after running the created docker image, it won't run the bokeh server yet because there'll be extra configuration (which is --allow-websocket-origin) needed for networking access that should be executed in container bokeh server command line.
+
+i. Open play-with-docker site at <a href="https://labs.play-with-docker.com/">here</a> and click Start.
+
+ii. git clone github repository by running: 
+
+```
+git clone https://github.com/nandrian-usc/california-coronavirus-data.git
+```
+
+iii. Go into california-coronavirus-data folder:
+
+```
+cd california-coronavirus-data
+```
+
+iv. Build docker image using Dockerfile
+
+```
+docker build -t californiacovidcasetracker -f NonlocalDockerfile .
+```
+
+v. Check that image was successfully created, run:
+ 
+```
+docker images -a
+``` 
+
+See that image californiacovidcasetracker is among the result.
+
+vi. Run docker image in container by executing:
+
+```
+docker run --rm -it -d -p 5006:5006/tcp californiacovidcasetracker:latest
+```
+
+vii. Before running the application, you will need <container name> and <playwithdocker_network_address> which can be known by:
+
+- <container_name> : run "docker ps" command and look for the name under header NAMES, example: "gracious_ardinghelli"
+
+- <playwithdocker_network_address> : 
+
+-- copy ssh link under SSH field; 
+
+-- removed "ssh " text; 
+
+-- replace "@" text with "-5006." where 5006 is the port. 
+
+Example from ssh copy text "ssh ip172-18-0-33-buh1nlpqckh000enmm7g@direct.labs.play-with-docker.com" should be changed into "ip172-18-0-33-buh1nlpqckh000enmm7g-5006.direct.labs.play-with-docker.com"
+
+viii. Execute:
+
+```
+docker exec -it <container name> bokeh serve --show ./case_tracker.py --allow-websocket-origin=<playwithdocker_network_address>
+```
+
+with first changing <container_name> and <playwithdocker_network_address> to use our respective values from step vii, or by using our previous example then the command would be:
+
+```
+docker exec -it gracious_ardinghelli bokeh serve --show ./case_tracker.py --allow-websocket-origin=ip172-18-0-33-buh1nlpqckh000enmm7g-5006.direct.labs.play-with-docker.com
+```
+
+ix. Open the Case Tracker site by clicking port link next to Open Port button (in this case: "5006")
+
+
+### Misc:
+
+i. <REPOSITORY> and <IMAGE_ID> used below can be known by executing: 
+
+```
+docker images -a
+``` 
+
+From result see under header REPOSITORY and IMAGE_ID. <NAMES> below can be known by executing 
+
+```
+docker ps
+```
+
+From result see under NAMES header.
+
+ii. Stop all running containers by executing:
+
+``` 
+docker stop $(docker ps -aq)
+```
+
+or to just stop one container by executing:
+
+``` 
+docker stop <NAMES>
+```
+
+example:
+
+```
+docker stop c336566b44e3
+```
+
+iii. Save image into offline tar file by executing:
+
+```
+docker save -o <output_path> <REPOSITORY>
+```
+
+example: 
+
+```
+docker save -o D:\californiacovidcasetracker.tar californiacovidcasetracker
+```
+
+iv. Load image from offline image file by executing:
+
+```
+docker load -i <input_path> 
+```
+
+example:
+
+```
+docker load -i D:\californiacovidcasetracker.tar
+```
+
+v. Delete image by executing: 
+
+```
+docker rmi <IMAGE_ID>
+```
+
+example:
+
+```
+docker rmi b6cefbebfaaa
+```
+
+
 
 
 # california-coronavirus-data
