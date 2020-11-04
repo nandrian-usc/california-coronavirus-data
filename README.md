@@ -72,6 +72,9 @@ deactivate
 ``` 
 
 
+
+
+
 ## Run Project using Docker
 
 There are two options to build and run Dockerfile which are running it in local computer or running it in play-with-docker.
@@ -94,7 +97,7 @@ iii. Go into california-coronavirus-data folder:
 cd california-coronavirus-data
 ```
 
-iv. Build docker image using Dockerfile
+iv. Build docker image using Dockerfile with prefered image name, in this case "californiacovidcasetracker"
 
 ```
 docker build . -t californiacovidcasetracker
@@ -116,6 +119,8 @@ docker run --rm -it -d -p 5006:5006/tcp californiacovidcasetracker:latest
 
 vii. Open the Case Tracker site by opening in browser <a href="http://localhost:5006/case_tracker">http://localhost:5006/case_tracker</a>
 
+
+
 ### b. Play-With-Docker
 Different docker file (named NonlocalDockerfile) was used to build image outside local Computer such as play-with-docker lab. This is because after running the created docker image, it won't run the bokeh server yet because there'll be extra configuration (which is --allow-websocket-origin) needed for networking access that should be executed in container bokeh server command line.
 
@@ -133,7 +138,7 @@ iii. Go into california-coronavirus-data folder:
 cd california-coronavirus-data
 ```
 
-iv. Build docker image using Dockerfile
+iv. Build docker image using Dockerfile with prefered image name, in this case "californiacovidcasetracker"
 
 ```
 docker build -t californiacovidcasetracker -f NonlocalDockerfile .
