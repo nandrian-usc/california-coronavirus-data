@@ -203,13 +203,15 @@ ix. Open the Case Tracker site by clicking port link next to Open Port button (i
 
 ### Misc:
 
-i. <REPOSITORY> and <IMAGE_ID> used below can be known by executing: 
+i. "REPOSITORY" and "IMAGE_ID" used below can be known by executing: 
 
 ```
 docker images -a
 ``` 
 
-From result see under header REPOSITORY and IMAGE_ID. <NAMES> below can be known by executing 
+From result see under header REPOSITORY and IMAGE_ID. 
+
+"NAMES" below can be known by executing 
 
 ```
 docker ps
