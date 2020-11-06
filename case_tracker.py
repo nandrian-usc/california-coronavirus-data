@@ -24,7 +24,7 @@ dataRace = pd.read_csv('cdph-race-ethnicity.csv')
 dataRace['date_time'] = pd.to_datetime(dataRace['date'])
 dataRace = dataRace.loc[dataRace['age'] == 'all']
 dataRace = dataRace.sort_values(by=['date_time', 'race'], ascending=True)
-dataRace = dataRace[['date_time', 'race', 'confirmed_cases_percent', 'deaths_percent', 'confirmed_cases_total', 'deaths_total']]
+dataRace = dataRace[['date_time', 'race', 'confirmed_cases_percent', 'deaths_percent', 'confirmed_cases_total', 'deaths_total', 'population_percent']]
 numRace = len(dataRace['race'].unique())
 
 dataRaceTotal = dataRace.groupby(['date_time']).agg({'confirmed_cases_percent': 'sum', 'deaths_percent': 'sum'}).rename(columns={'confirmed_cases_percent':'total_cases_percent', 'deaths_percent': 'total_deaths_percent'})
@@ -32,7 +32,7 @@ dataRace = pd.merge(dataRace, dataRaceTotal, on='date_time')
 
 def getDataRaceSelected(selectedDate, selected):
     if dataRace.loc[dataRace['date_time'] == selectedDate].empty:
-        dRaceSelected = pd.DataFrame({'date_time' : [], 'race' : [], 'angle' : [], 'percentage' : [], 'color' : [], 'total' : []})        
+        dRaceSelected = pd.DataFrame({'date_time' : [], 'race' : [], 'angle' : [], 'percentage' : [], 'color' : [], 'total' : [], 'population' : []})        
     else:
         dRaceSelected = dataRace.loc[dataRace['date_time'] == selectedDate].copy()
         dRaceSelected.reset_index()#.rename(columns={'index':'raceIdx'})
@@ -44,6 +44,7 @@ def getDataRaceSelected(selectedDate, selected):
             dRaceSelected['angle'] = dRaceSelected['deaths_percent']/dRaceSelected['total_deaths_percent'] * 2*pi
             dRaceSelected['percentage'] = dRaceSelected['deaths_percent']
             dRaceSelected['total'] = dRaceSelected['deaths_total']
+        dRaceSelected['population'] = dRaceSelected['population']
         dRaceSelected['color'] = Category20c[6]
     #print(dRaceSelected.head())
     return dRaceSelected
@@ -51,12 +52,12 @@ def getDataRaceSelected(selectedDate, selected):
 
 
 div = Div(text="""<b>California State Covid-19 Case Tracker</b><br>
-Data Source by California Department of Public Health daily release also accessible at <a href="https://github.com/datadesk/california-coronavirus-data">Github repository</a> with file names as cdph-state-totals.csv and cdph-race-etnicity.csv<br> 
+Data Source by California Department of Public Health daily release also accessible at <a href="https://github.com/datadesk/california-coronavirus-data">Github repository</a> with file names as cdph-state-totals.csv (used column confirmed_cases and deaths subtracted by previous date) and cdph-race-etnicity.csv (only age "all" was used for every race/date)<br> 
 <ul>
 <li>Accumulative Cases and Deaths data (cdph-state-totals.csv) was originated from <a href="https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx">https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx</a></li>
 <li>Race and etnicity data (cdph-race-etnicity.csv) was originated from <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx">https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx</a></li>
 </ul>
-Note: Some race data were empty (will show as Data Not Available), an example of available data can be seen on date 14-22 May 2020<br>
+Note: Some race data were empty (will show as Data Not Available), an example of available data can be seen on date 14-22 May 2020. Initial view show data on July to show pie chart with available race/ethnicity data. CHANGE DATE PICKER TO AUGUST MONTH TO SEE AUGUST DATA<br>
 Last Updated Data : """ + end.strftime('%d %B %Y'),
 width=1000, height=150)
 
@@ -69,7 +70,7 @@ line_df = pd.DataFrame({'x':data['date_time'], 'y':data['new_confirmed_cases']})
 source = ColumnDataSource(line_df)
 
 dataRaceSelected = getDataRaceSelected(selectedDate, selected)
-pie_df=pd.DataFrame({'race':dataRaceSelected['race'], 'percentage':dataRaceSelected['percentage'], 'angle':dataRaceSelected['angle'], 'color': dataRaceSelected['color'], 'total': dataRaceSelected['total']})
+pie_df=pd.DataFrame({'race':dataRaceSelected['race'], 'percentage':dataRaceSelected['percentage'], 'angle':dataRaceSelected['angle'], 'color': dataRaceSelected['color'], 'total': dataRaceSelected['total'], 'population': dataRaceSelected['population_percent']})
 pieSource = ColumnDataSource(pie_df)
     
 bokeh_doc = curdoc()
@@ -101,7 +102,7 @@ lineFig.title = lineTitle
 pieTitle = Title()
 pieTitle.text = "Race Percentage in comparison to Total Population of " + selected + " (" + selectedDate + ")"
 
-pieFig = figure(plot_height=350, toolbar_location=None, tools="hover", tooltips=("Race @race: @total{0,0}  cases (@percentage{:.0%} of population)"))
+pieFig = figure(plot_height=350, toolbar_location=None, tools="hover", tooltips=("Race @race: @total{0,0}  cases (@percentage{:.0%} of total cases/deaths); General Population: @population{:.0%}"))
 pieFig.title = pieTitle
 
 piePlot = pieFig.wedge(x=0, y=1, radius=0.4, start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'), line_color="white", fill_color='color', legend_field='race', source=pieSource)
@@ -121,7 +122,7 @@ def date_callback(attrname, old, new):
     if dataRace.loc[dataRace['date_time'] == selectedDate].empty:
         extra = " - Data Not Available"
     
-    piePlot.data_source.data = pd.DataFrame({'race':dRaceSelected['race'], 'percentage':dRaceSelected['percentage'], 'angle':dRaceSelected['angle'], 'color': dRaceSelected['color'], 'total': dRaceSelected['total']})
+    piePlot.data_source.data = pd.DataFrame({'race':dRaceSelected['race'], 'percentage':dRaceSelected['percentage'], 'angle':dRaceSelected['angle'], 'color': dRaceSelected['color'], 'total': dRaceSelected['total'], 'population': dRaceSelected['population']})
     '''
     piePlot.data_source.data['color']=dRaceSelected['color']
     piePlot.data_source.data['race']=dRaceSelected['race']    
