@@ -57,7 +57,7 @@ python -m venv env
 4. Activate environment by running:
 
 ```
-.\env\Script\activate
+.\env\Scripts\activate
 ```
 
 5. Install dependencies (numpy, pandas, bokeh) with two options (choose appropriately):
