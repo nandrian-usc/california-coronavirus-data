@@ -44,7 +44,7 @@ def getDataRaceSelected(selectedDate, selected):
             dRaceSelected['angle'] = dRaceSelected['deaths_percent']/dRaceSelected['total_deaths_percent'] * 2*pi
             dRaceSelected['percentage'] = dRaceSelected['deaths_percent']
             dRaceSelected['total'] = dRaceSelected['deaths_total']
-        dRaceSelected['population'] = dRaceSelected['population']
+        dRaceSelected['population'] = dRaceSelected['population_percent']
         dRaceSelected['color'] = Category20c[6]
     #print(dRaceSelected.head())
     return dRaceSelected
@@ -57,9 +57,9 @@ Data Source by California Department of Public Health daily release also accessi
 <li>Accumulative Cases and Deaths data (cdph-state-totals.csv) was originated from <a href="https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx">https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx</a></li>
 <li>Race and etnicity data (cdph-race-etnicity.csv) was originated from <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx">https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx</a></li>
 </ul>
-Note: Some race data were empty (will show as Data Not Available), an example of available data can be seen on date 14-22 May 2020. Initial view show data on July to show pie chart with available race/ethnicity data. CHANGE DATE PICKER TO AUGUST MONTH TO SEE AUGUST DATA<br>
+Note: Some race data were empty (will show as Data Not Available), an example of available data can be seen on date 14-22 May 2020 or 12 August 2020. Initial view show data on July to show pie chart with available race/ethnicity data.<br>
 Last Updated Data : """ + end.strftime('%d %B %Y'),
-width=1000, height=150)
+width=1000, height=170)
 
 
 
@@ -70,7 +70,7 @@ line_df = pd.DataFrame({'x':data['date_time'], 'y':data['new_confirmed_cases']})
 source = ColumnDataSource(line_df)
 
 dataRaceSelected = getDataRaceSelected(selectedDate, selected)
-pie_df=pd.DataFrame({'race':dataRaceSelected['race'], 'percentage':dataRaceSelected['percentage'], 'angle':dataRaceSelected['angle'], 'color': dataRaceSelected['color'], 'total': dataRaceSelected['total'], 'population': dataRaceSelected['population_percent']})
+pie_df=pd.DataFrame({'race':dataRaceSelected['race'], 'percentage':dataRaceSelected['percentage'], 'angle':dataRaceSelected['angle'], 'color': dataRaceSelected['color'], 'total': dataRaceSelected['total'], 'population': dataRaceSelected['population']})
 pieSource = ColumnDataSource(pie_df)
     
 bokeh_doc = curdoc()
@@ -163,7 +163,7 @@ callbackPlot = CustomJS(args=dict(lineFig=lineFig), code="""
 select = Select(title="Option:", value="Cases", options=["Cases", "Deaths"])
 select.on_change("value", select_callback)
 
-date_picker = DatePicker(title='Select date (data will be shown at the most left part of graph)', value=start.strftime('%Y-%m-%d'), min_date="2020-01-01", max_date="2020-10-31")
+date_picker = DatePicker(title='Select date (data will be shown at the most left part of graph). CHANGE DATE PICKER TO MONTH AUGUST TO SEE AUGUST DATA', value=start.strftime('%Y-%m-%d'), min_date="2020-01-01", max_date="2020-10-31")
 #date_picker.js_on_change('value', callbackPlot)
 date_picker.on_change('value', date_callback)
 
