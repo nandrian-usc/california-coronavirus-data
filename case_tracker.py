@@ -52,14 +52,15 @@ def getDataRaceSelected(selectedDate, selected):
 
 
 div = Div(text="""<b>California State Covid-19 Case Tracker</b><br>
-Data Source by California Department of Public Health daily release also accessible at <a href="https://github.com/datadesk/california-coronavirus-data">Github repository</a> with file names as cdph-state-totals.csv (used column confirmed_cases and deaths subtracted by previous date) and cdph-race-etnicity.csv (only age "all" was used for every race/date)<br> 
+Data Source by California Department of Public Health daily release also accessible at <a href="https://github.com/datadesk/california-coronavirus-data">Github repository</a> with file names as: <br> 
 <ul>
-<li>Accumulative Cases and Deaths data (cdph-state-totals.csv) was originated from <a href="https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx">https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx</a></li>
-<li>Race and etnicity data (cdph-race-etnicity.csv) was originated from <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx">https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx</a></li>
+<li>cdph-state-totals.csv = Accumulative Cases and Deaths data was originated from <a href="https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx"> https://www.cdph.ca.gov/Programs/OPA/Pages/New-Release-2020.aspx</a>. From csv file, used column confirmed_cases for cases and column deaths for deaths, both subtracted by previous date to get new emergence since data were cumulative</li>
+<li>cdph-race-etnicity.csv = Race and etnicity data was originated from <a href="https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx">https://www.cdph.ca.gov/Programs/CID/DCDC/Pages/COVID-19/Race-Ethnicity.aspx</a>. From csv file, used column confirmed_cases_percent and deaths_percent, as well as race but only age "all" was used for every race/date</li>
 </ul>
-Note: Some race data were empty (will show as Data Not Available), an example of available data can be seen on date 14-22 May 2020 or 12 August 2020. Initial view show data on July to show pie chart with available race/ethnicity data.<br>
-Last Updated Data : """ + end.strftime('%d %B %Y'),
-width=1000, height=170)
+<b>Note:</b> Some race data were empty (will show as Data Not Available), an example of available data can be seen on date 14-22 May 2020 or <b>12 August 2020</b>.<br> 
+Initial view show data on July to show pie chart with available race/ethnicity data.<br>
+LAST UPDATED DATA : """ + end.strftime('%d %B %Y'),
+width=1100, height=185)
 
 
 
@@ -160,7 +161,7 @@ callbackPlot = CustomJS(args=dict(lineFig=lineFig), code="""
 '''
 
 
-select = Select(title="Option:", value="Cases", options=["Cases", "Deaths"])
+select = Select(title="Option: (select between cases or deaths)", value="Cases", options=["Cases", "Deaths"])
 select.on_change("value", select_callback)
 
 date_picker = DatePicker(title='Select date (data will be shown at the most left part of graph). CHANGE DATE PICKER TO MONTH AUGUST TO SEE AUGUST DATA', value=start.strftime('%Y-%m-%d'), min_date="2020-01-01", max_date="2020-10-31")
