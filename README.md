@@ -27,7 +27,7 @@ Case Tracker designed to visualize California state Covid-19 new cases and death
 
 
 
-## Preparing Environment and Running Project
+## Preparing Environment and Running Project (tested in Windows machine)
 
 1. Open command line/power shell and do git clone by running:
 
@@ -60,7 +60,7 @@ python -m venv env
 .\env\Script\activate
 ```
 
-5. Install dependencies (numpy, pandas, bokeh) with two ways:
+5. Install dependencies (numpy, pandas, bokeh) with two options (choose appropriately):
 
 a. by manually running in order:
 
