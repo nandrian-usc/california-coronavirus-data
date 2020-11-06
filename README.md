@@ -35,6 +35,13 @@ Case Tracker designed to visualize California state Covid-19 new cases and death
 git clone https://github.com/nandrian-usc/california-coronavirus-data.git
 ```
 
+and get inside california-coronavirus-data folder:
+
+```
+cd california-coronavirus-data
+```
+
+
 2. If not installed yet, do pip installation of virtualenv
 
 ```
@@ -44,7 +51,7 @@ pip install virtualenv
 3. Make new environment named "env" by running in command line:
 
 ```
-python -m venv dsci560env
+python -m venv env
 ```
 
 4. Activate environment by running:

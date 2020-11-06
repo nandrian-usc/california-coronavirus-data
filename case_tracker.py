@@ -101,7 +101,7 @@ lineFig.title = lineTitle
 pieTitle = Title()
 pieTitle.text = "Race Percentage in comparison to Total Population of " + selected + " (" + selectedDate + ")"
 
-pieFig = figure(plot_height=350, toolbar_location=None, tools="hover", tooltips=("Race @race: @total{0,0} (@percentage{:.0%})"))
+pieFig = figure(plot_height=350, toolbar_location=None, tools="hover", tooltips=("Race @race: @total{0,0}  cases (@percentage{:.0%} of population)"))
 pieFig.title = pieTitle
 
 piePlot = pieFig.wedge(x=0, y=1, radius=0.4, start_angle=cumsum('angle', include_zero=True), end_angle=cumsum('angle'), line_color="white", fill_color='color', legend_field='race', source=pieSource)
