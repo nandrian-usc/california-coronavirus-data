@@ -189,7 +189,7 @@ vii. Before running the application, you will need information on "container nam
 
 - <container_name> : run "docker ps" command and look for the name under header NAMES, example: "gracious_ardinghelli"
 
-- <playwithdocker_network_address> : copy ssh link under SSH field; removed "ssh " text; replace "@" text with "-5006." where 5006 is the port. 
+- <playwithdocker_network_address> : copy ssh link under SSH field; removed "ssh " text; replace "@" text with "-5006." (including the dot "." since it easily overlooked) where 5006 is the port  
 
 Example from ssh copy text "ssh ip172-18-0-33-buh1nlpqckh000enmm7g@direct.labs.play-with-docker.com" then should be changed into "ip172-18-0-33-buh1nlpqckh000enmm7g-5006.direct.labs.play-with-docker.com"
 
